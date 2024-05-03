@@ -17,4 +17,4 @@ Created a computerised version of the Marupeke game complete with functionality 
 
 
 <div align="center"><img width="315" alt="Screenshot 2024-05-03 at 12 02 00" src="https://github.com/raksobha/JavaFXGame/assets/114419640/311be2db-368a-4740-a772-bbbd7d2dd1bd"></div>
-<p align="center" padding-bottom=5 >File search functionality</p>
+<p align="center">File search functionality</p>

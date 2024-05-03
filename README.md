@@ -1,3 +1,4 @@
+# Java Fx Game
 Created a computerised version of the Marupeke game complete with functionality to save and open game files, restart a game and changing the size of the grid. Every game is solvable as the program runs a depth first search to determine whether a grid can be completed and only if it is true will it be displayed to the player.
 
 <div align="center"><img width="353" alt="Screenshot 2024-05-03 at 11 59 03" src="https://github.com/raksobha/JavaFXGame/assets/114419640/68ba4a25-c152-4eed-9e8a-810b42756156"></div>

@@ -1,0 +1,95 @@
+Displaying the data:
+
+In MarupekeFX, when the main method is run, it launches the program with the args
+The argument for the size is fetched using getParameters in init(), so that a grid with legal
+size can be created. Here the Marupeke object is created and instantiated.
+The game always creates a legal, solvable grid, by using a while loop that keeps creating a randomPuzzle
+till grid.solvePuzzle returns true (true means it is solvable)
+The GUI is also set in the MarupekeGrid class using the setGUI method so that data can be
+retrieved later from the object
+
+The GUI of this game is split into 3 parts within the BorderPane root; top, middle, bottom
+At the top of the GUI i used a Hbox to group the three buttons that control the grid. In
+MarupekeGrid i created an enum for the three types of choices you can make (unmark, X, O) and
+these are looped through, creating a button for each type
+
+In the middle is the grid, created with a GridPane. Using a nested for loop, it creates the
+same amount of tiles as in the Marupeke object, so that the tile in the object can be directly
+referenced since both the GUI and object have a tiles with x/y coordinates.
+The editable tiles are given a mouse click event and are white, whereas uneditable tiles are grey
+and don't have a mouse click event, therefore rendering users unable to edit them
+
+At the bottom of the BorderPane are the additional options quit, restart, open and save.
+
+Data is fetched from the Marupeke object using the private variable "game" which is instantiated
+before the GUI is created.
+To see if the user has won the game, once the tile has been pressed and the method listReasons
+has been called an if statement checks game.isPuzzleComplete and game.isLegalGrid and if they're
+true an alert is displayed to the user telling them they have won and that they can choose to play again.
+At the bottom of the GUI is the button restart. When this is clicked the method restart is called with
+primaryStage given as a parameter. cleanup() is visited which creates a new instance of game and sets the
+GUI for this new grid. The startGame method is then called again to create a new grid and new GUI
+
+The GUI is kept up to date through mouseClick events. When a tile is clicked the GUI sets the text of the
+tile to whatever ToggleButton (unmark, x, o) was selected at that time.
+
+
+
+Editing the data:
+
+To alter the data in the grid, the user must select one of three buttons at the top of the GUI;
+UNMARK, CROSS, NOUGHT. Since these are toggle buttons that are in a toggle group, only one can
+be selected at a time, and once selected it stays selected so that you can choose as many tiles to change
+to that choice as you want.
+If the button has been clicked and selected, the variable that keeps track of it is changed to that symbol.
+The onAction event also happens when it is deselected, so tiles are only updated when the selected toggle is the
+same as the button clicked
+
+When the tile to change is clicked, the tile is updated by setting the text (using setText(String s) method
+in GameTile). The way it links to the object in editing the data is the game.pressed(mark, x, y) method
+Here, a switch statement finds the which Mark was selected and applies the change to the Marupeke object
+using unmark,markO, markX. It returns the corresponding Mark as a string which is set as the tile's text.
+The MarupekeGUI interface allows the MarupekeGrid to send any illegalities caused by the move back to the
+GUI so that an alert can be displayed telling the user of an illegal move
+Additionally, if the user has completed the puzzle, an alert is displayed telling them they have won. If they
+havw clicked on quit an alert is displayed telling them Commiserations.
+
+
+
+
+
+
+
+Additional features:
+Restart
+Restart feature can be triggered at any time. The button triggers the restart method, which runs the cleanup()
+method, where a new instance of MarupekeGrid is created and the GUI is set for this one instead. It then runs
+the startGame method, where it remakes the GUI with the new grid
+The size of the grid can be changed when restarting at the end of successful completion of the grid or by pressing
+quit. The win alert is a choice dialog with the choice of grid size 4-10, which changes the variable size, so that
+when they press restart, a new grid is created with the chosen size.
+The lose alert is the same but also allows the user to quit rather than choose a new size for the grid.
+
+Saving current game to file
+This saves the grid, including the current progress to a new textfile created by the user. The data is saved
+as a string of characters. Clicking save brings up a textInputDialog which when ok is clicked runs game.saveGrid()
+SaveGrid gets a string of characters by running saveToString(). This also shifts the uneditable tiles ASCII values by 1
+which lets the program easily distinguish which are editable later on when opening a file.
+This allows players to save progress and also save puzzles that they enjoyed
+
+Opening game file
+This opens a file and reads the string representing the grid and creates a grid and GUI from this data.
+On clicking "OPEN" a textInputDialog is displayed where you can enter the file name for the saved grid you
+wish to play.
+This will run getSavedGrid which tries the buildFromFile method in MarupekeGrid and throws a fileNotFound
+exception if the file does notexist, which is caught and a corresponding error alert is displayed.
+The data is converted to a string and the size of the grid is calculated as it is the square root of the total
+number of characters.
+As the uneditable data's ascii values were increased by 1, it uses an if,else if statement to create the grid
+and set the editable nature. X->Y, O->P, #->$
+The GUI is then recreated for this new grid and startGame is called again
+
+Marking a tile
+Rather than having to choose X, O or to unmark a tile each time, i made it easier for the user to play by letting
+them choose once and then freely be able to change as many tiles as they want to that option.
+
